@@ -1163,15 +1163,15 @@ def experiment1():
     SJFT2matrix = [list(map(int, line.split())) for line in SJFT2OUT.split("\n")]
 
     # Print the 2D array
-    for row in FcfsT0matrix:
-        print(row)
+    #for row in FcfsT0matrix:
+       # print(row[5])
 
 
-    for row in FcfsT1matrix:
-        print(row)
+    #for row in FcfsT1matrix:
+       # print(row[5])
 
-    for row in FcfsT2matrix:
-        print(row)
+    for row in FbT2matrix:
+        print(row[5])
 
 
 experiment1()

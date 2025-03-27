@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
 #FcfsScheduler Test0 Output.out
 FcfsT0OUT = """1 0 0 0 41 29 12 41 0 0
 2 0 100 100 173 35 38 73 0 0
@@ -1103,75 +1106,266 @@ SJFT2OUT = """1	5	0	0	20	5	15	20	0	0
 150	13	25776	25776	25833	28	29	57	0	0
 0	0	0	0	25833	21575	0	25833	4258	0"""
 
+
+################################################################################
+# Turning Fcfs data into 2D matrix
+#10 processes
+FcfsT0matrix = [list(map(int, line.split())) for line in FcfsT0OUT.split("\n")]
+
+#50 processes
+FcfsT1matrix = [list(map(int, line.split())) for line in FcfsT1OUT.split("\n")]
+
+#150 processes
+FcfsT2matrix = [list(map(int, line.split())) for line in FcfsT2OUT.split("\n")]
+
+################################################################################
+# Turning FeedbackRR data into 2D matrix
+#10 processes
+FbT0matrix = [list(map(int, line.split())) for line in FbT0OUT.split("\n")]
+
+#50 processes
+FbT1matrix = [list(map(int, line.split())) for line in FbT1OUT.split("\n")]
+
+#150 processes
+FbT2matrix = [list(map(int, line.split())) for line in FbT2OUT.split("\n")]
+
+################################################################################
+# Turning IdealSJF data into 2D matrix
+#10 processes
+IdealT0matrix = [list(map(int, line.split())) for line in IdealT0OUT.split("\n")]
+
+#50 processes
+IdealT1matrix = [list(map(int, line.split())) for line in IdealT1OUT.split("\n")]
+
+#150 processes
+IdealT2matrix = [list(map(int, line.split())) for line in IdealT2OUT.split("\n")]
+
+
+################################################################################
+# Turning RoundRobiun data into 2D matrix
+#10 processes
+RRT0matrix = [list(map(int, line.split())) for line in RRT0OUT.split("\n")]
+
+#50 processes
+RRT1matrix = [list(map(int, line.split())) for line in RRT1OUT.split("\n")]
+
+#150 processes
+RRT2matrix = [list(map(int, line.split())) for line in RRT2OUT.split("\n")]
+
+
+################################################################################
+# Turning Shortest job first data into 2D matrix
+#10 processes
+SJFT0matrix = [list(map(int, line.split())) for line in SJFT0OUT.split("\n")]
+
+#50 processes
+SJFT1matrix = [list(map(int, line.split())) for line in SJFT1OUT.split("\n")]
+
+#150 processes
+SJFT2matrix = [list(map(int, line.split())) for line in SJFT2OUT.split("\n")]
+
 def experiment1():
-
-    ################################################################################
-    # Turning Fcfs data into 2D matrix
-    #10 processes
-    FcfsT0matrix = [list(map(int, line.split())) for line in FcfsT0OUT.split("\n")]
-
-    #50 processes
-    FcfsT1matrix = [list(map(int, line.split())) for line in FcfsT1OUT.split("\n")]
-
-    #150 processes
-    FcfsT2matrix = [list(map(int, line.split())) for line in FcfsT2OUT.split("\n")]
-
-    ################################################################################
-    # Turning FeedbackRR data into 2D matrix
-    #10 processes
-    FbT0matrix = [list(map(int, line.split())) for line in FbT0OUT.split("\n")]
-
-    #50 processes
-    FbT1matrix = [list(map(int, line.split())) for line in FbT1OUT.split("\n")]
-
-    #150 processes
-    FbT2matrix = [list(map(int, line.split())) for line in FbT2OUT.split("\n")]
-
-    ################################################################################
-    # Turning IdealSJF data into 2D matrix
-    #10 processes
-    IdealT0matrix = [list(map(int, line.split())) for line in IdealT0OUT.split("\n")]
-
-    #50 processes
-    IdealT1matrix = [list(map(int, line.split())) for line in IdealT1OUT.split("\n")]
-
-    #150 processes
-    IdealT2matrix = [list(map(int, line.split())) for line in IdealT2OUT.split("\n")]
+    Fcfsx = [10, 50, 150]
+    Fcfsy = []
 
 
-    ################################################################################
-    # Turning RoundRobiun data into 2D matrix
-    #10 processes
-    RRT0matrix = [list(map(int, line.split())) for line in RRT0OUT.split("\n")]
+    CPUTotal = 0
 
-    #50 processes
-    RRT1matrix = [list(map(int, line.split())) for line in RRT1OUT.split("\n")]
+    #cputime - idle cpu time 
+    CPUUtilized = 0
 
-    #150 processes
-    RRT2matrix = [list(map(int, line.split())) for line in RRT2OUT.split("\n")]
-
-
-    ################################################################################
-    # Turning Shortest job first data into 2D matrix
-    #10 processes
-    SJFT0matrix = [list(map(int, line.split())) for line in SJFT0OUT.split("\n")]
-
-    #50 processes
-    SJFT1matrix = [list(map(int, line.split())) for line in SJFT1OUT.split("\n")]
-
-    #150 processes
-    SJFT2matrix = [list(map(int, line.split())) for line in SJFT2OUT.split("\n")]
-
-    # Print the 2D array
-    #for row in FcfsT0matrix:
-       # print(row[5])
+    for row in FcfsT0matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    print((CPUUtilized/CPUTotal)*100)
+    Fcfsy.append((CPUUtilized/CPUTotal)*100)
 
 
-    #for row in FcfsT1matrix:
-       # print(row[5])
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in FcfsT1matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    Fcfsy.append((CPUUtilized/CPUTotal)*100)
 
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in FcfsT2matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    Fcfsy.append((CPUUtilized/CPUTotal)*100)    
+
+
+################################################################
+    FeedbackRRx= [10, 50, 150]
+    FeedbackRRy= []
+
+
+    CPUTotal = 0
+
+    #cputime - idle cpu time 
+    CPUUtilized = 0
+
+    for row in FbT0matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    print((CPUUtilized/CPUTotal)*100)
+    FeedbackRRy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in FbT1matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    FeedbackRRy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
     for row in FbT2matrix:
-        print(row[5])
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    FeedbackRRy.append((CPUUtilized/CPUTotal)*100) 
+
+
+################################################################
+    IdealSJFx= [10, 50, 150]
+    IdealSJFy=[]
+
+    CPUTotal = 0
+
+    #cputime - idle cpu time 
+    CPUUtilized = 0
+
+    for row in IdealT0matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    print((CPUUtilized/CPUTotal)*100)
+    IdealSJFy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in IdealT1matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    IdealSJFy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in IdealT2matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    IdealSJFy.append((CPUUtilized/CPUTotal)*100) 
+
+    ###################################################################
+    RRx= [10, 50, 150]
+    RRy=[]
+
+    CPUTotal = 0
+
+    #cputime - idle cpu time 
+    CPUUtilized = 0
+
+    for row in RRT0matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    print((CPUUtilized/CPUTotal)*100)
+    RRy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in RRT1matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    RRy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in RRT2matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    RRy.append((CPUUtilized/CPUTotal)*100) 
+
+####################################################################
+
+    SJFx= [10, 50, 150]
+    SJFy= []
+
+    CPUTotal = 0
+
+    #cputime - idle cpu time 
+    CPUUtilized = 0
+
+    for row in SJFT0matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    print((CPUUtilized/CPUTotal)*100)
+    SJFy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in SJFT1matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    SJFy.append((CPUUtilized/CPUTotal)*100)
+
+
+    CPUUtilized = 0
+    CPUTotal = 0
+    for row in SJFT2matrix:
+        CPUTotal += row[5]
+        if row[0] != 0:
+            CPUUtilized += row[5]
+    SJFy.append((CPUUtilized/CPUTotal)*100) 
+
+
+
+
+
+    # Create the plot
+    #plt.plot(Fcfsx, Fcfsy, label="Fcfs", color='black', marker='o')  
+    #plt.plot(FeedbackRRx, FeedbackRRy, label="Feedback", color='r', marker='o')  
+    #plt.plot(IdealSJFx, IdealSJFy, label="Ideal", color='y', marker='o')  
+    plt.plot(RRx, RRy, label="RR", color='g', marker='o')  
+    #plt.plot(SJFx, SJFy, label="SJF", color='b', marker='o')  
+
+
+    plt.title("Experiment 1")
+    plt.xlabel("Num of Processes")
+    plt.ylabel("CPU Utilization")
+
+   
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+    ####################################################
+
+
+
+
+
 
 
 experiment1()
